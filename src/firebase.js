@@ -1,6 +1,5 @@
-// Import the functions you need from the SDKs you need
+// firebase.js
 import { initializeApp } from "firebase/app";
-
 import { getAuth, GoogleAuthProvider, GithubAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 // Your web app's Firebase configuration
@@ -11,16 +10,16 @@ const firebaseConfig = {
   storageBucket: "e-commerce-b2b1b.firebasestorage.app",
   messagingSenderId: "848419187150",
   appId: "1:848419187150:web:08e6dbfa9eb8ac30bee39f",
-  measurementId: "G-5R2GMKCFW1"
+  measurementId: "G-5R2GMKCFW1",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-
 // Auth setup
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
+googleProvider.addScope("profile"); 
 const githubProvider = new GithubAuthProvider();
 
 export { auth, googleProvider, githubProvider, signInWithPopup, signOut };

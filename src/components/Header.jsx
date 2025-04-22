@@ -14,9 +14,9 @@ import {
   FaUserCircle,
   FaCog,
   FaHistory,
-  FaSignOutAlt
+  FaSignOutAlt,
 } from "react-icons/fa";
-import '../App.css';
+import "../App.css";
 import AuthModal from "./AuthModal";
 
 const Header = () => {
@@ -35,6 +35,12 @@ const Header = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Define fallback avatar URL
+  const fallbackAvatar = "https://avatars.githubusercontent.com/u/168772245?v=4";
+
+  // Ensure avatar URL is valid
+  const avatarUrl = user?.photoURL || fallbackAvatar;
 
   return (
     <>
@@ -64,15 +70,23 @@ const Header = () => {
         </div>
 
         <div className="flex px-10 gap-6">
-          <a href="#" className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']">About</a>
-          <a href="#" className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']">Contact</a>
-          <a href="#" className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']">FAQ</a>
-          <a href="#" className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']">Help</a>
+          <a href="#" className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']">
+            About
+          </a>
+          <a href="#" className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']">
+            Contact
+          </a>
+          <a href="#" className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']">
+            FAQ
+          </a>
+          <a href="#" className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']">
+            Help
+          </a>
         </div>
       </div>
 
       {/* 🔍 Logo & Search */}
-      <div className="w-full bg-[#23110A] text-white py-2 px-8 flex flex-wrap justify-between items-center gap-4">
+      <div className="w-full bg-[#23110A] text-white py-2 px-8 flex flex-wrap justify-between items tablespoons-center gap-4">
         <div className="text-2xl font-['Titan_One'] font-extrabold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text tracking-wide">
           ShopNexus
         </div>
@@ -89,10 +103,38 @@ const Header = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500"><FaFacebookF /></a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500"><FaInstagram /></a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-sky-400"><FaTwitter /></a>
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-red-500"><FaYoutube /></a>
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-blue-500"
+          >
+            <FaFacebookF />
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-pink-500"
+          >
+            <FaInstagram />
+          </a>
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-sky-400"
+          >
+            <FaTwitter />
+          </a>
+          <a
+            href="https://youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-red-500"
+          >
+            <FaYoutube />
+          </a>
         </div>
       </div>
 
@@ -101,61 +143,75 @@ const Header = () => {
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-4 py-2">
           {/* Menu links */}
           <div className="flex-1 hidden md:flex justify-center gap-8 font-['Yatra_One'] text-sm">
-            {["Women", "Mens", "Kids", "GenZ", "Electronics", "Beauty", "Home", "Footwear"].map((item, index) => (
-              <a key={index} href="#" className="hover:text-yellow-400 transition">{item}</a>
-            ))}
+            {["Women", "Mens", "Kids", "GenZ", "Electronics", "Beauty", "Home", "Footwear"].map(
+              (item, index) => (
+                <a key={index} href="#" className="hover:text-yellow-400 transition">
+                  {item}
+                </a>
+              )
+            )}
           </div>
 
           <div className="hidden md:flex items-center gap-4 text-[#F5F5DC] text-lg relative">
-            <a href="#" className="hover:text-red-500"><FaHeart /></a>
-            <a href="#" className="hover:text-green-400"><FaShoppingCart /></a>
+            <a href="#" className="hover:text-red-500">
+              <FaHeart />
+            </a>
+            <a href="#" className="hover:text-green-400">
+              <FaShoppingCart />
+            </a>
 
             {user ? (
               <div className="relative" ref={dropdownRef}>
                 <img
-                  src={user.photoURL || "https://avatars.githubusercontent.com/u/168772245?v=4"}
+                  src={avatarUrl}
                   alt="avatar"
                   className="w-8 h-8 rounded-full cursor-pointer border-2 border-yellow-300 hover:border-yellow-400 transition-all"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
+                  onError={(e) => {
+                    e.target.src = fallbackAvatar; // Fallback on image load error
+                  }}
                 />
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white text-gray-800 rounded-lg shadow-xl z-50 overflow-hidden border border-gray-200">
                     <div className="px-4 py-3 border-b border-gray-100 bg-gray-50 flex items-center gap-3">
-                      <img 
-                        src={user.photoURL || "https://avatars.githubusercontent.com/u/168772245?v=4"} 
-                        alt="avatar" 
+                      <img
+                        src={avatarUrl}
+                        alt="avatar"
                         className="w-8 h-8 rounded-full"
+                        onError={(e) => {
+                          e.target.src = fallbackAvatar; // Fallback on image load error
+                        }}
                       />
                       <div>
                         <p className="font-medium text-sm">{user.displayName || "User"}</p>
                         <p className="text-xs text-gray-500">{user.email || ""}</p>
                       </div>
                     </div>
-                    
-                    <a 
-                      href="#" 
+
+                    <a
+                      href="#"
                       className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 transition-colors"
                     >
                       <FaUserCircle className="mr-3 text-gray-500" />
                       My Profile
                     </a>
-                    
-                    <a 
-                      href="#" 
+
+                    <a
+                      href="#"
                       className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 transition-colors"
                     >
                       <FaHistory className="mr-3 text-gray-500" />
                       Order History
                     </a>
-                    
-                    <a 
-                      href="#" 
+
+                    <a
+                      href="#"
                       className="flex items-center px-4 py-3 text-sm hover:bg-gray-50 transition-colors"
                     >
                       <FaCog className="mr-3 text-gray-500" />
                       Account Settings
                     </a>
-                    
+
                     <div className="border-t border-gray-100">
                       <button
                         onClick={() => {
