@@ -17,6 +17,7 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import "../App.css";
+import { Link } from "react-router-dom";
 import AuthModal from "./AuthModal";
 
 const Header = () => {
@@ -37,7 +38,8 @@ const Header = () => {
   }, []);
 
   // Define fallback avatar URL
-  const fallbackAvatar = "https://avatars.githubusercontent.com/u/168772245?v=4";
+  const fallbackAvatar =
+    "https://avatars.githubusercontent.com/u/168772245?v=4";
 
   // Ensure avatar URL is valid
   const avatarUrl = user?.photoURL || fallbackAvatar;
@@ -51,7 +53,9 @@ const Header = () => {
           <span className="font-['Winky_Rough']">077-630-456-500</span>
           <span className="w-px h-4 bg-gray-500 mx-1"></span>
           <FaShippingFast className="text-green-400" />
-          <span className="font-['Winky_Rough']">Free Shipping on order over ₹300</span>
+          <span className="font-['Winky_Rough']">
+            Free Shipping on order over ₹300
+          </span>
           <a
             href="#"
             className="text-yellow-400 font-['Titan_One'] underline hover:text-yellow-300 transition"
@@ -70,16 +74,28 @@ const Header = () => {
         </div>
 
         <div className="flex px-10 gap-6">
-          <a href="#" className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']">
+          <a
+            href="#"
+            className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']"
+          >
             About
           </a>
-          <a href="#" className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']">
+          <a
+            href="#"
+            className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']"
+          >
             Contact
           </a>
-          <a href="#" className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']">
+          <a
+            href="#"
+            className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']"
+          >
             FAQ
           </a>
-          <a href="#" className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']">
+          <a
+            href="#"
+            className="text-gray-300 hover:text-[#F5F5DC] font-['Yatra_One']"
+          >
             Help
           </a>
         </div>
@@ -143,13 +159,24 @@ const Header = () => {
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between px-4 py-2">
           {/* Menu links */}
           <div className="flex-1 hidden md:flex justify-center gap-8 font-['Yatra_One'] text-sm">
-            {["Women", "Mens", "Kids", "GenZ", "Electronics", "Beauty", "Home", "Footwear"].map(
-              (item, index) => (
-                <a key={index} href="#" className="hover:text-yellow-400 transition">
-                  {item}
-                </a>
-              )
-            )}
+            {[
+              "Women",
+              "Mens",
+              "Kids",
+              "GenZ",
+              "Electronics",
+              "Beauty",
+              "Home&Living",
+              "Footwear",
+            ].map((item, index) => (
+              <Link
+                key={index}
+                to={`/${item.toLowerCase()}`}
+                className="hover:text-yellow-400 transition"
+              >
+                {item}
+              </Link>
+            ))}
           </div>
 
           <div className="hidden md:flex items-center gap-4 text-[#F5F5DC] text-lg relative">
@@ -172,7 +199,7 @@ const Header = () => {
                   }}
                 />
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white text-gray-800 rounded-lg shadow-xl z-50 overflow-hidden border border-gray-200">
+                  <div className="absolute right-0 mt-4 w-64 bg-white text-gray-800 rounded-lg shadow-xl z-50 overflow-hidden border border-gray-200">
                     <div className="px-4 py-3 border-b border-gray-100 bg-gray-50 flex items-center gap-3">
                       <img
                         src={avatarUrl}
@@ -183,8 +210,12 @@ const Header = () => {
                         }}
                       />
                       <div>
-                        <p className="font-medium text-sm">{user.displayName || "User"}</p>
-                        <p className="text-xs text-gray-500">{user.email || ""}</p>
+                        <p className="font-medium text-sm">
+                          {user.displayName || "User"}
+                        </p>
+                        <p className="text-xs text-gray-500">
+                          {user.email || ""}
+                        </p>
                       </div>
                     </div>
 
